@@ -1,0 +1,16 @@
+{% extends "::base.html.twig" %}
+
+{% block title %}PDFBundle:Print:createForn{% endblock %}
+
+{% block extra_css %}
+    <link href="{{ asset('bundles/pdf/css/print_format.css') }}" rel="stylesheet" media="screen">
+    <style>
+        {% block header_ccs %}{% endblock %}
+    </style>
+{% endblock %}
+
+{% block body %}
+    <page size="A4">
+        {% block header %}{% endblock %}
+    </page>
+{% endblock %}

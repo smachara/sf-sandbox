@@ -1,0 +1,19 @@
+{% extends "PDFBundle:Print:print.structure.pdf.html.twig" %}
+{% block logo_data %}
+   {{ asset('bundles/pdf/images/logo_sca.jpg') }}
+
+{% endblock %}
+{% block data_logo_data %}
+        SCA 2000 EVRY <br>
+        Maison des Sports<br>
+        206 Rue Pierre et Marie Curie 91000 EVRY<br>
+        E-mail : admin@sca2000.netSite : www.sca2000.net<br>
+        Association loi 1901 déclarée en Préfecture<br>
+        le 02/03/71 sous le n° 0912000456
+{% endblock %}
+{% block qr_data %}
+    {{ asset('bundles/pdf/images/QR.jpg') }}
+{% endblock %}
+{% block season_data %}
+    <h1>Saisson 2016-2017</h1>
+{% endblock %}
