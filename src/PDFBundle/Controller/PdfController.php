@@ -10,7 +10,7 @@ use WhiteOctober\TCPDFBundle as TCPDF;
 class PdfController extends Controller
 {
     /**
-     * @Route("/Inscription")
+     * @Route("/ins")
      */
     public function InscriptionAction()
     {
@@ -49,13 +49,14 @@ class PdfController extends Controller
 
                     </head>
                     <body>
-                    <img src="bundle\logo_sca.png" width="20%" alt="">
+                    <img src="assets\pdf\images\logo_sca.png" width="200" alt="">
                     </body>
                </html>
 EOD;
 
 // Print text using writeHTMLCell()
-        $pdf->writeHTMLCell(0, 0, '', '', $html, 0, 1, 0, true, '', true);
+        $pdf->writeHTML($html, true, false, true, false, '');
+        //$pdf->writeHTMLCell(0, 0, '', '', $html, 0, 1, 0, true, '', true);
 
 // ---------------------------------------------------------
 
@@ -69,9 +70,7 @@ EOD;
         return $response;
 
 
-        //return $this->render('AppBundle:PdfController:inscription.html.twig', array(
-            // ...
-       // ));
+
     }
 
 }

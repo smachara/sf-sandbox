@@ -1,21 +1,23 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="UTF-8" />
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        {% block stylesheets %}{% endblock %}
-        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+{% block html %}
+    <!DOCTYPE html>
+    <html>
+        <head>
+            <meta charset="UTF-8" />
+            <title>{% block title %}Welcome!{% endblock %}</title>
+            {% block stylesheets %}{% endblock %}
+            <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
 
-        {% block css %}
-            <link href="{{ asset('bundles/css/bootstrap.css') }}" rel="stylesheet" media="screen">
-            <link href="{{ asset('bundles/css/jquery-ui.css') }}" rel="stylesheet" media="screen">
-            <link rel="stylesheet" href="{{ asset('bundles/css/custom.css') }}">
-            {% block extra_css %}{% endblock %}
-        {% endblock %}
+            {% block css %}
+                <link href="{{ asset('bundles/css/bootstrap.css') }}" rel="stylesheet" media="screen">
+                <link href="{{ asset('bundles/css/jquery-ui.css') }}" rel="stylesheet" media="screen">
+                <link rel="stylesheet" href="{{ asset('bundles/css/custom.css') }}">
+                {% block extra_css %}{% endblock %}
+            {% endblock %}
 
-    </head>
-    <body>
-        {% block body %}{% endblock %}
-        {% block javascripts %}{% endblock %}
-    </body>
-</html>
+        </head>
+        <body>
+            {% block body %}{% endblock %}
+            {% block javascripts %}{% endblock %}
+        </body>
+    </html>
+{% endblock %}
