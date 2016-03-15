@@ -11,7 +11,7 @@
         le 02/03/71 sous le n° 0912000456
 {% endblock %}
 
-{% block qr_data %}{{ asset('assets/pdf/images/QR.jpg')}}{% endblock %}
+{% block qr_data %}{{ qr | raw }}{% endblock %}
 
 {% block season_data %}
     <h1>Saisson 2016-2018</h1>

@@ -45,7 +45,7 @@
                 <p class="data-logo">{% block data_logo_data %}{% endblock %}</p>
             </td>
             <td class="qr">
-               <img class="qr"  src="{% block qr_data %}{% endblock %}" alt="">
+               {% block qr_data %}{% endblock %}
             </td>
             <td class="season">{% block season_data %}{% endblock %}</td>
         </tr>
