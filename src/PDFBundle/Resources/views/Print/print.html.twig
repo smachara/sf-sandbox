@@ -1,0 +1,400 @@
+{% extends "::base.html.twig" %}
+
+{% block title %}PDFBundle:Print:createForn{% endblock %}
+
+{% block extra_css %}
+    <link href="{{ asset('assets/pdf/css/print_format.css') }}" rel="stylesheet" media="screen">
+
+    <style>
+        div.marge{
+            position: relative;
+            margin: 10mm 10mm 10mm 10mm;
+        }
+        .header {
+            margin-top: 10mm;
+            position: relative;
+            width: 100%;height: 3cm;
+        }
+        .header-logo {
+            position: absolute;
+            top: 0px;
+            left: 0px;
+            width: 20%;height: 100%;
+            text-align: center;
+            vertical-align: middle;
+        }
+        .header-logo-data{
+            position: absolute;
+            top: 0px;
+            left: 21%;
+            width: 30%; height: 100%;
+            font-size: 10px;
+            text-align: left;
+
+        }
+        .header-qr{
+            position: absolute;
+            top: 0px;
+            left: 51%;
+            width: 24%;height: 100%;
+            text-align: center;
+            vertical-align:middle;
+        }
+        .header-season{
+            position: absolute;
+            top: 0px;
+            left: 75%;
+            width: 25%;height: 100%;
+            text-align: center;
+        }
+        span.circle {
+            background: white;
+            border-color: black;
+            border-style: solid;
+            border-width: 1px;
+            border-radius: 0.6em;
+            -moz-border-radius: 0.6em;
+            -webkit-border-radius: 0.6em;
+            color: black;
+            display: inline-block;
+            font-weight: bold;
+            line-height: 1.2em;
+            margin-right: 0px;
+            text-align: center;
+            width: 1.2em;
+        }
+        span.on{
+            color: black;
+        }
+        span.off{
+            color: white;
+        }
+
+        #attention{
+            border-radius: 25px;
+            padding: 5px;
+            background-color: #ffcccc;
+            text-align: center;
+            vertical-align:middle;
+        }
+
+        #warning{
+            border-radius: 25px;
+            padding: 5px;
+            background-color: #ffffcc;
+            text-align: center;
+            vertical-align:middle;
+        }
+
+        .authorization {
+            border-radius: 25px;
+            padding: 5px;
+            background-color: #cce6ff;
+            text-align: center;
+            vertical-align:middle;
+        }
+
+        #section{
+            border-style: solid;
+            border-color: lightgray;
+            border-radius: 15px;
+            padding: 5px;
+            background-color: white;
+        }
+        .row{
+            position: relative;
+            width: 100%;height: 10mm;
+            text-align: center;
+            vertical-align: middle;
+            font-size: small;
+        }
+
+        .col1-2{
+            position: absolute;
+            top: 0px;
+            left: 0px;
+            width: 50%;height: 100%;
+            text-align: left
+        }
+        .col2-2{
+            position: absolute;
+            top: 0px;
+            left: 50%;
+            width: 50%;height: 100%;
+            text-align: left
+        }
+        .col1-3{
+            position: absolute;
+            top: 0px;
+            left: 0px;
+            width: 33%;height: 100%;
+        }
+        .col2-3{
+            position: absolute;
+            top: 0px;
+            left: 33%;
+            width: 33%;height: 100%;
+        }
+        .col3-3{
+            position: absolute;
+            top: 0px;
+            left: 66%;
+            width: 33%;height: 100%;
+        }
+        table#t01 {
+            width: 100%;
+        }
+        td#t01cel{
+            border-color: black;
+            border-style: solid;
+            border-width: 1px;
+            border-radius: 0.6em;
+            -moz-border-radius: 0.6em;
+            -webkit-border-radius: 0.6em;
+        }
+        table#t01 th {
+            color: black;
+            background-color: lightgray;
+        }
+        img{
+            height: 100%;
+        }
+    </style>
+{% endblock %}
+
+{% block body %}
+    <button onclick="javascript:genPDF();">PDF</button>
+    <page size="A4">
+            <div id="P1" class="marge">
+              <div style="height: 0.1mm"></div>
+              <div class="header">
+                <div class="header-logo">
+                    <img height="100%"  src="{{ asset('assets/pdf/images/logo_sca.jpg') }}" alt="SCA 2000 Evry">
+                </div>
+                <div class="header-logo-data">
+                    <p style="padding-top: 5px;padding-left: 5px;">
+                        SCA 2000 EVRY <br>
+                        Maison des Sports<br>
+                        206 Rue Pierre et Marie Curie 91000 EVRY<br>
+                        E-mail : admin@sca2000.netSite : www.sca2000.net<br>
+                        Association loi 1901 déclarée en Préfecture<br>
+                        le 02/03/71 sous le n° 0912000456
+                    </p>
+                </div>
+                <div class="header-qr">
+                    {{ qr | raw }}
+                </div>
+                <div class="header-season">
+                    <h1>Saisson 2016-2017</h1>
+                </div>
+            </div>
+            <div id="attention">
+               <b>A T T E N T I O N : <ins>La cotisation ne donne pas lieu à remboursement.</ins></b>  Les parents sont priés de vérifier la présence de l’enseignant avant de laisser leur enfant en cours.
+            </div>
+
+            <div class="row">
+                <div class="col1-3">
+                   <p>ACTIVITE: <b>NATATION</b></p>
+                </div>
+                <div class="col2-3" style="text-align: center">
+                    <p> <span class="circle off">X</span>   ECOLE
+                        <span class="circle on">X</span>       CLUB
+                        <span class="circle off">X</span>       LOISIRS
+                    </p>
+                </div>
+                <div class="col3-3" style="text-align: right">
+                        <b>INSCRIPTION</b> <span class="circle off">X</span><br>
+                        <b>REINSCRIPTION</b> <span class="circle on">X</span>
+                </div>
+            </div>
+            <div class="row" style="height: 5mm">
+                <div class="col1-3">
+                    DATE D’INSCRIPTION:  <b>00/00/0000</b>
+                </div>
+            </div>
+            <div class="row" style="height: 5mm">
+                <div class="col1-3">
+                    JOURS ET HORAIRES DE L’ACTIVITE:
+                </div>
+            </div>
+            <div class="row" style="height: 5mm">
+                <div class="col1-3">
+                    Dirigeant/bénévole <span class="circle off">X</span>
+                    Pratiquant <span class="circle off">X</span><br>
+                </div>
+                <div class="col2-3">
+                    N° de licence:
+                </div>
+
+            </div>
+            <div id="warning">
+                <b>Pour toute inscription : CERTIFICAT MEDICAL OBLIGATOIRE + 1 photo</b><br>
+                (CERTIFICAT MEDICAL DATANT DE MOINS DE 3 MOIS EN PRECISANT LA DISCIPLINE)
+            </div>
+            <small><b>L’ADHERENT:</b></small>
+            <div id="section" style="height: 13mm">
+                <div class="row" style="height: 5mm">
+                    <div class="col1-2" style="text-align: left">
+                        <span class="circle off">X</span>Masculin <span class="circle off">X</span>Féminin
+                    </div>
+                    <div class="col2-2" style="text-align: right    ">
+                        DATE DE NAISSANCE: 00/00/0000</br>
+                   </div>
+                </div>
+                <div class="row" style="height: 8mm">
+                    <div class="col1-2" style="text-align: left">
+                        NOM:</br>
+                        NATIONALITE:</br>
+                    </div>
+                    <div class="col2-2" style="text-align: left">
+                        PRENOM:</br>
+                        LIEU DE NAISSANCE:</br>
+                    </div>
+                </div>
+
+            </div>
+            <small><b>PARENTS (pour les mineurs):</b></small>
+            <div id="section" style="height: 8mm">
+                <div class="row" style="height: 8mm">
+                    <div class="col1-2" style="text-align: left">
+                        NOM:</br>
+                        PRENOM:</br>
+                    </div>
+                </div>
+            </div>
+            <small><b>ADRESSE:</b></small>
+            <div id="section" style="height: 8mm">
+                <div class="row" style="height: 4mm">
+                    <div class="col1-2">
+                        N°:
+                    </div>
+                    <div class="col2-2">
+                        RUE:
+                    </div>
+                </div>
+                <div class="row" style="height: 4mm">
+                    <div class="col1-2">
+                        CODE POSTAL:
+                    </div>
+                    <div class="col2-2">
+                        VILLE:
+                    </div>
+                </div>
+            </div>
+
+            <small><b>TELEPHONE:</b></small>
+            <div id="section" style="height: 8mm">
+                <div class="row" style="height: 4mm" >
+                    <div class="col1-3" style="text-align: left">DOMICILE: 00-00-00-00-00</div>
+                    <div class="col2-3" style="text-align: left">TRAVAIL: 00-00-00-00-00	</div>
+                    <div class="col3-3" style="text-align: left">PORTABLE: 00-00-00-00-00</div>
+                </div>
+                <div class="row" style="height: 4mm">
+                    <div class="col1-2">E-MAIL:</div>
+                </div>
+            </div>
+
+            <small><b>PERSONNES A CONTACTER  EN CAS D’ URGENCE:</b></small>
+            <div id="section" style="height: 12mm">
+                <div class="row" style="height: 4mm">
+                    <div class="col1-2" style="text-align: left">
+                        NOM:</br>
+                    </div>
+                    <div class="col2-2" style="text-align: left">
+                        PRENOM:</br>
+                    </div>
+                </div>
+                <div class="row" style="height: 4mm" >
+                    <div class="col1-3" style="text-align: left"><small><b>TELEPHONE:</b></small> DOMICILE: 00-00-00-00-00</div>
+                    <div class="col2-3" style="text-align: center">TRAVAIL: 00-00-00-00-00	</div>
+                    <div class="col3-3" style="text-align: left">PORTABLE: 00-00-00-00-00</div>
+                </div>
+                <div class="row" style="height: 4mm">
+                    <div class="col1-2">E-MAIL:</div>
+                </div>
+            </div>
+            <div class="authorization" style="height: 15mm; text-align: justify">
+                Je soussignée(e) : ................................................................................................ ,responsable légal de l’enfant : </br>
+                ................................................................................... autorise  les  responsables ou  entraineurs  de  la section  sportive
+                  à prendre toutes les dispositions nécessaires en cas d’incident ou d’accident.
+            </div>
+            <small><b>Paiement</b></small>
+            <div class="row" style="height: 4mm" >
+                <table id="t01" style="width:100%">
+                    <tr>
+                        <th>N° CHEQUE(S)</th>
+                        <th>BANQUE</th>
+                        <th>EMETTEUR DU CHEQUE	</th>
+                        <th>MOIS</th>
+                        <th>MONTANT</th>
+                    </tr>
+                    <tr style="height: 20mm; background-color: #eee;">
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td>Prix de la cotisation:</td>
+                        <td id="t01cel" style="text-align: right" >€</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td>Option assurance:</td>
+                        <td id="t01cel" style="text-align: right" >€</td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">POUR EN ESPECES, EXIGEZ UN REÇU</td>
+                        <td></td>
+                        <td>TOTAL:</td>
+                        <td id="t01cel" style="text-align: right" >€</td>
+
+                    </tr>
+                </table>
+                <div class="row">
+                    <div class="col1-2">
+                        <div class="authorization" style="text-align: justify">
+                            <span class="circle off">X</span> <b>Droit à l’image</b>
+                            Le soussigné reconnaît être informé que le SCA 2000 EVRY peut réaliser des photos ou des
+                            films de lui‐même ou de ses enfants lors des entrainements, compétitions, manifestations,
+                            et donner son accord pour leur utilisation, exclusivement dans des supports en rapport avec
+                            l’activité sportive : journaux, revues, site internet fédéraux, du club, de l’OMS ou de la ville.
+
+                        </div>
+                    </div>
+                    <div id="section" class="col2-2" style="height: 30mm">
+                        L’adhésion au SCA 2000 EVRY vaut engagement à respecter les statuts et les différents règlements
+                        de l’association et des sections.</br>
+                        « LU ET APPROUVE »  + SIGNATURE OBLIGATOIRE :
+                    </div>
+                </div>
+            </div>
+          </div>
+    </page>
+{% endblock %}
+
+{% block extra_js %}
+    <script src="{{ asset('assets/pdf/js/html2canvas.js') }}"></script>
+    <script src="{{ asset('assets/pdf/js/jspdf.debug.js') }}"></script>
+{% endblock %}
+
+{% block script %}
+    <script>
+        function genPDF() {
+            html2canvas(document.getElementById("P1"),{
+                onrendered: function (canvas){
+                    var img = canvas.toDataURL("image/png");
+                    var doc = new jsPDF();
+                    doc.addImage(img,'JEPG',0,0);
+                    doc.save('test.pdf');
+                }
+            });
+        }
+    </script>
+{% endblock %}

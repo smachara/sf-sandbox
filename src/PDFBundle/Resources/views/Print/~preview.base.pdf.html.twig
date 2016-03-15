@@ -1,0 +1,43 @@
+{% extends "::base.html.twig" %}
+
+{% block title %}PDFBundle:Print:createForn{% endblock %}
+
+{% block extra_css %}
+    <link href="{{ asset('assets/pdf/css/print_format.css') }}" rel="stylesheet" media="screen">
+    <style>
+        {% block header_ccs %}{% endblock %}
+        {% block atention_ccs %}{% endblock %}
+    </style>
+{% endblock %}
+
+{% block body %}
+    <button onclick="javascript:genPDF();">PDF</button>
+
+    <page size="A4">
+       <div id="P1">
+            {% block header %}{% endblock %}
+            {% block attention%}{% endblock %}
+       </div>
+    </page>
+
+{% endblock %}
+
+{% block extra_js %}
+    <script src="{{ asset('assets/pdf/js/html2canvas.js') }}"></script>
+    <script src="{{ asset('assets/pdf/js/jspdf.debug.js') }}"></script>
+{% endblock %}
+
+{% block script %}
+    <script>
+        function genPDF() {
+            html2canvas(document.getElementById("P1"),{
+                onrendered: function (canvas){
+                    var img = canvas.toDataURL("image/png");
+                    var doc = new jsPDF();
+                    doc.addImage(img,'JEPG',0,0);
+                    doc.save('test.pdf');
+                }
+            });
+        }
+    </script>
+{% endblock %}
